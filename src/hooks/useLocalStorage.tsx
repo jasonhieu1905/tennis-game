@@ -7,7 +7,7 @@ export default function useLocalStorage(key: string, initialValue?: string | Fun
   
   const [value, setValue] = useState(() => {
     const jsonValue = localStorage.getItem(prefixedKey);
-    if (jsonValue != null) {
+    if (jsonValue) {
       return JSON.parse(jsonValue);
     }
     if (typeof initialValue === "function") {
@@ -18,7 +18,9 @@ export default function useLocalStorage(key: string, initialValue?: string | Fun
   });
 
   useEffect(() => {
-    localStorage.setItem(prefixedKey, JSON.stringify(value));
+    if (value) {
+      localStorage.setItem(prefixedKey, JSON.stringify(value));
+    }
   }, [prefixedKey, value]);
 
   return [value, setValue];
