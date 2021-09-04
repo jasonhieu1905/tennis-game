@@ -1,0 +1,1 @@
+export const TENNIS_GAME_KEY = 'game';
